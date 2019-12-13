@@ -28,10 +28,10 @@ LIMIT
 # (Hint: a lot of arithmetic works with dates.)
 answers.append(parttwo.query('''
 SELECT
-    HireDate - BirthDate
+    AVG(HireDate - BirthDate)
 FROM
     Employee
-'''))
+''')[0][0])
 
 num     = 0
 running = True
