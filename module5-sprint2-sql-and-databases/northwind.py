@@ -53,24 +53,26 @@ LIMIT
 '''))
 
 # What is the largest category (by number of unique products in it)?
-# Failed
 
 # After all my work, all I can concluse after searching dozens of questions online is that SQL has no built in method of grabbing the fucking headers
 # SQL also doens't understand that I can't to grab CategoryID, which is somehow both listed inside the table, yet also is ungrabbable
 # What this is doing is multiplying all of the category data across all other information, whcih makes it impossible to get anything but exactly the same information everywhere.
+# The only way then to actually grab the headers is to go outside the code and look it up either inside the file or in a database viewer.
+# SQL is an awful language and needs to be replaced.
 
 answers.append(partthree.query('''
 SELECT
-    COUNT(DISTINCT CategoryName)ProductName
+    CategoryName, COUNT(ProductName)
 FROM
     Product
-INNER JOIN
-    Category on Product.CategoryID
+LEFT JOIN
+    Category on Product.CategoryID = Category.ID
 GROUP BY
-    ProductName
-LIMIT
-    10
-'''))
+    CategoryName
+ORDER BY
+    COUNT(ProductName) DESC
+LIMIT 1
+''')[0])
 
 
 
